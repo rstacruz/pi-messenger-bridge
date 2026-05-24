@@ -2,6 +2,8 @@ import { defineConfig } from "tsdown";
 
 export default defineConfig({
   format: ["esm"],
+  platform: "node",
+  shims: true,
   deps: {
     alwaysBundle: [/./],
     neverBundle: [
@@ -9,9 +11,15 @@ export default defineConfig({
       "@earendil-works/pi-coding-agent",
       "@earendil-works/pi-tui",
       "qrcode-terminal",
+      "@matrix-org/matrix-sdk-crypto-nodejs",
     ],
   },
   dts: true,
   sourcemap: true,
-  splitting: false,
+  outExtensions() {
+    return { js: ".js" };
+  },
+  outputOptions: {
+    codeSplitting: false,
+  },
 });
